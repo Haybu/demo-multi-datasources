@@ -15,19 +15,23 @@
  */
 
 
-package io.agilehandy.jdbc;
+package io.agilehandy.jdbc.datasources;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
 /**
  * @author Haytham Mohamed
  **/
+@Profile("!cloud")
+@Configuration
 public class DataSourcesConfiguration {
 
 	// primary datasource configuration
@@ -39,10 +43,10 @@ public class DataSourcesConfiguration {
 	}
 
 	// primary datasource
-	@Bean
+	@Bean(name = "first-db")
 	@Primary
 	@ConfigurationProperties("app.datasource.first.configuration")
-	public HikariDataSource firstDataSource() {
+	public DataSource firstDataSource() {
 		return firstDataSourceProperties().initializeDataSourceBuilder()
 				.type(HikariDataSource.class).build();
 	}
@@ -53,9 +57,9 @@ public class DataSourcesConfiguration {
 		return new DataSourceProperties();
 	}
 
-	@Bean
+	@Bean(name = "second-db")
 	@ConfigurationProperties("app.datasource.second.configuration")
-	public HikariDataSource secondDataSource() {
+	public DataSource secondDataSource() {
 		return secondDataSourceProperties().initializeDataSourceBuilder()
 				.type(HikariDataSource.class).build();
 	}
