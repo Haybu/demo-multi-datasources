@@ -15,33 +15,13 @@
  */
 
 
-package io.agilehandy.jdbc.firstDB.domain;
+package io.agilehandy.jdbc.firstDB.repository;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.agilehandy.jdbc.firstDB.domain.FirstEntity;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author Haytham Mohamed
  **/
-@Entity
-public class FirstEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-
-	String description;
-
-	public FirstEntity(String description) {
-		this.description = description;
-	}
-
-	@Override
-	public String toString() {
-		return "[id: " + id +  ", Description: " + description + "]";
-	}
-
+public interface FirstRepository extends CrudRepository<FirstEntity, Long> {
 }

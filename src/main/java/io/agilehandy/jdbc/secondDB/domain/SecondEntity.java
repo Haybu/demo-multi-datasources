@@ -33,8 +33,15 @@ public class SecondEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
-	String field1;
+	String description;
 
-	String field2;
+	public SecondEntity(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "[id: " + id +  ", Description: " + description + "]";
+	}
 	
 }
