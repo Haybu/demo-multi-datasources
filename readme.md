@@ -20,7 +20,7 @@ Run with multi-datasources to two different H2 databases:
     $ java -jar target/demo-multi-datasources-0.0.1-SNAPSHOT.jar
 ```
 
-# Run in cloud Foundry
+# Run in Cloud Foundry
 
 Run with multi-datasources to two different MySql database services:
 
