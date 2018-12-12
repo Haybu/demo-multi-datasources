@@ -55,7 +55,7 @@ http://localhost:8080/seconddb
 And notice different records. The same should be done when running in CF:
 
 ```bash
-http://demo-multi-datasources.cfapps.io/firstdb
+http://<app-route>/firstdb
 or 
-http://demo-multi-datasources.cfapps.io/seconddb
+http://<app-route>/seconddb
 ```
