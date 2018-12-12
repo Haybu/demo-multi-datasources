@@ -40,3 +40,22 @@ Run with multi-datasources to two different MySql database services:
 ```bash
     $ cf push
 ```
+
+# Validate
+
+Hit your browser with the appropriate route or localhost depending on 
+where you're running it. Locally browse to:
+
+```bash
+http://localhost:8080/firstdb
+or 
+http://localhost:8080/seconddb
+```
+
+And notice different records. The same should be done when running in CF:
+
+```bash
+http://demo-multi-datasources.cfapps.io/firstdb
+or 
+http://demo-multi-datasources.cfapps.io/seconddb
+```
