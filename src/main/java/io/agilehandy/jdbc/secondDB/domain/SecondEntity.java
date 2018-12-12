@@ -35,6 +35,8 @@ public class SecondEntity {
 
 	String description;
 
+	public SecondEntity() {}
+
 	public SecondEntity(String description) {
 		this.description = description;
 	}

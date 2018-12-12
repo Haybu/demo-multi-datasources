@@ -35,6 +35,8 @@ public class FirstEntity {
 
 	String description;
 
+	public FirstEntity() {}
+
 	public FirstEntity(String description) {
 		this.description = description;
 	}

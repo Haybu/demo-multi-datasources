@@ -17,12 +17,13 @@
 
 package io.agilehandy.jdbc.secondDB;
 
-import io.agilehandy.jdbc.datasources.HibernateDialects;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -43,9 +44,10 @@ import java.util.HashMap;
 		basePackages = "io.agilehandy.jdbc.secondDB.repository"
 )
 @EnableTransactionManagement
-public class SecondJpaConfiguration {
+public class SecondJpaConfiguration implements EnvironmentAware {
 
 	private final DataSourceProperties dataSourceProperties;
+	private Environment environment;
 
 	public SecondJpaConfiguration(DataSourceProperties dataSourceProperties) {
 		this.dataSourceProperties = dataSourceProperties;
@@ -55,10 +57,9 @@ public class SecondJpaConfiguration {
 	public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(final EntityManagerFactoryBuilder builder,
 	                                                                        final @Qualifier("second-db") DataSource dataSource) {
 
-		String dialect = HibernateDialects.map(dataSourceProperties.getPlatform());
 		HashMap<String, Object> properties = new HashMap<>();
-		properties.put("hibernate.hbm2ddl.auto", "create-drop");
-		properties.put("hibernate.dialect", dialect);
+		properties.put("hibernate.hbm2ddl.auto",
+				environment.getProperty("spring.jpa.hibernate.ddl-auto"));
 
 		return builder
 				.dataSource(dataSource)
@@ -74,4 +75,8 @@ public class SecondJpaConfiguration {
 		return new JpaTransactionManager(secondEntityManagerFactory);
 	}
 
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
+	}
 }
